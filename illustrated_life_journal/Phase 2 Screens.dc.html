@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin:0; background:#E9DFCD; -webkit-font-smoothing:antialiased; }
+  a { color:#D97764; text-decoration:none; }
+  a:hover { color:#2E2A26; }
+  .ms { font-family:'Material Symbols Outlined'; font-weight:400; font-style:normal; line-height:1; }
+  @keyframes ilj-pulse { 0%{transform:scale(.8);opacity:.5} 100%{transform:scale(1.6);opacity:0} }
+  @keyframes ilj-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+  @keyframes ilj-dot { 0%,100%{opacity:.2} 50%{opacity:1} }
+  @keyframes ilj-sweep { 0%{transform:translateX(-70%)} 100%{transform:translateX(170%)} }
+  @keyframes ilj-spin { to{transform:rotate(360deg)} }
+</style>
+</helmet>
+
+<section id="1a" style="padding:72px;background:#E9DFCD;font-family:Inter,sans-serif;box-sizing:border-box">
+  <div style="max-width:1100px;display:flex;flex-direction:column;gap:16px;margin-bottom:64px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#2E2A26;color:#FBF5EC;font:600 12px/1 Inter,sans-serif;letter-spacing:.06em">1a</span>
+      <span style="font:600 12px/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#948C80">Illustrated Life Journal · Phase 2</span>
+    </div>
+    <h1 style="margin:0;font:600 44px/1.15 Fraunces,serif;color:#2E2A26;letter-spacing:-.01em">Memory → illustration → journal page</h1>
+    <p style="margin:0;max-width:64ch;font:400 17px/1.65 Inter,sans-serif;color:#5B554D;text-wrap:pretty">Phone-first, using the existing Phase 1 theme verbatim — ivory <span style="font:500 14px/1 ui-monospace,monospace;color:#948C80">#FBF5EC</span>, coral <span style="font:500 14px/1 ui-monospace,monospace;color:#948C80">#E88C7D</span>, charcoal <span style="font:500 14px/1 ui-monospace,monospace;color:#948C80">#2E2A26</span>, Fraunces + Inter, 28px cards, the same three-item bottom nav. Row 1 is today's app recreated from <span style="font:500 14px/1 ui-monospace,monospace;color:#948C80">lib/</span> for reference; rows 2–4 are the Phase 2 additions; row 5 is responsive behaviour. Illustration areas are droppable — drag your sample images straight onto them.</p>
+  </div>
+
+  <!-- ============================ ROW 1 · PHASE 1 TODAY ============================ -->
+  <div style="display:flex;flex-direction:column;gap:24px;margin-bottom:88px">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #D9CDB6;padding-bottom:12px">
+      <span style="font:600 13px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#948C80">Row 1</span>
+      <span style="font:600 22px/1.2 Fraunces,serif;color:#2E2A26">Phase 1 as it stands today</span>
+      <span style="font:400 14px/1.4 Inter,sans-serif;color:#948C80">unchanged — the baseline every new screen has to sit beside</span>
+    </div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap">
+
+      <!-- P1 Home -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Home</div>
+        <div data-screen-label="P1 Home" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+            <div style="padding:24px 24px 0;display:flex;align-items:center;gap:16px">
+              <div style="flex:1">
+                <div style="font:400 14px/1.5 Inter,sans-serif;color:#5B554D">Welcome back</div>
+                <div style="font:600 28px/1.25 Fraunces,serif;color:#2E2A26">Your story continues</div>
+              </div>
+              <dc-import name="Character" hint-size="72px,83px" style="width:72px;height:83px"></dc-import>
+            </div>
+            <div style="padding:24px">
+              <div style="background:#fff;border-radius:28px;padding:16px;box-shadow:0 6px 16px rgba(46,42,38,.12)">
+                <div style="font:600 22px/1.3 Fraunces,serif;color:#2E2A26">What happened today?</div>
+                <div style="height:4px"></div>
+                <div style="font:400 14px/1.5 Inter,sans-serif;color:#5B554D">Write a few lines and watch it become a page in your story.</div>
+                <div style="height:16px"></div>
+                <div style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E88C7D;border-radius:999px;padding:16px 24px">
+                  <span class="ms" style="font-size:18px;color:#fff">edit</span>
+                  <span style="font:600 15px/1 Inter,sans-serif;color:#fff">Write a memory</span>
+                </div>
+              </div>
+            </div>
+            <div style="padding:0 24px 8px;font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Recent memories</div>
+            <div style="padding:0 24px 24px">
+              <div style="background:#F3EAD9;border-radius:28px;padding:16px;display:flex;align-items:center;gap:16px;box-shadow:0 6px 16px rgba(46,42,38,.12)">
+                <span class="ms" style="font-size:24px;color:#948C80">auto_awesome</span>
+                <span style="flex:1;font:400 14px/1.5 Inter,sans-serif;color:#5B554D">Your first memory will show up here once you write one.</span>
+              </div>
+            </div>
+            <div style="padding:0 24px 8px;display:flex;align-items:center;justify-content:space-between">
+              <span style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Stories</span>
+              <span style="font:600 16px/1.3 Inter,sans-serif;color:#5B554D">See all</span>
+            </div>
+            <div style="padding:0 24px;display:flex;gap:16px">
+              <div style="width:150px;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.12)">
+                <div style="height:94px;background:rgba(138,154,126,.35);display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:36px;color:#8A9A7E">auto_stories</span></div>
+                <div style="padding:16px">
+                  <div style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Japan Trip</div>
+                  <div style="height:4px"></div>
+                  <div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">4 memories</div>
+                </div>
+              </div>
+              <div style="width:150px;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.12)">
+                <div style="height:94px;background:rgba(169,143,114,.35);display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:36px;color:#A98F72">auto_stories</span></div>
+                <div style="padding:16px">
+                  <div style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Summer 2026</div>
+                  <div style="height:4px"></div>
+                  <div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">2 memories</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="height:76px;background:#fff;border-top:1px solid #E7DDCB;display:flex;align-items:center;justify-content:space-around;flex:none">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#D97764">home</span><span style="font:500 12px/1 Inter,sans-serif;color:#D97764">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#948C80">auto_stories</span><span style="font:500 12px/1 Inter,sans-serif;color:#948C80">Stories</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#948C80">face</span><span style="font:500 12px/1 Inter,sans-serif;color:#948C80">Character</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P1 Journal entry -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Journal entry</div>
+        <div data-screen-label="P1 Journal entry" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none"><span class="ms" style="font-size:26px;color:#2E2A26">chevron_left</span><span style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">What happened today?</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;padding:24px">
+            <div style="font:400 14px/1.5 Inter,sans-serif;color:#948C80">Write freely — no structure needed.</div>
+            <div style="height:16px"></div>
+            <div style="flex:1;background:#fff;border:1px solid #E7DDCB;border-radius:20px;padding:16px;font:400 14px/1.5 Inter,sans-serif;color:#5B554D">Today I went to a small café after class. It was raining, so I sat near the window and drank matcha while watching people outside...</div>
+            <div style="height:24px"></div>
+            <div style="display:flex;align-items:center;justify-content:center;background:#E7DDCB;border-radius:999px;padding:16px 24px;font:600 15px/1 Inter,sans-serif;color:#948C80">Create my page</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P1 Generation -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Generation</div>
+        <div data-screen-label="P1 Generation" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;box-sizing:border-box">
+          <div style="width:36px;height:36px;border:3px solid rgba(232,140,125,.25);border-top-color:#E88C7D;border-radius:50%;animation:ilj-spin 1s linear infinite"></div>
+          <div style="height:24px"></div>
+          <div style="font:600 16px/1.4 Inter,sans-serif;color:#2E2A26;text-align:center">Turning today into a page in your story…</div>
+          <div style="height:4px"></div>
+          <div style="font:400 14px/1.5 Inter,sans-serif;color:#5B554D;text-align:center">This will just take a moment.</div>
+        </div>
+      </div>
+
+      <!-- P1 Journal page -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Journal page</div>
+        <div data-screen-label="P1 Journal page" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none"><span class="ms" style="font-size:26px;color:#2E2A26">chevron_left</span><span style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Your page</span></div>
+          <div style="flex:1;padding:24px;overflow:hidden">
+            <div style="width:100%;height:428px;background:rgba(138,154,126,.25);border-radius:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+              <span class="ms" style="font-size:48px;color:#8A9A7E">image</span>
+              <span style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">Illustration coming in a later phase</span>
+            </div>
+            <div style="height:24px"></div>
+            <div style="font:600 22px/1.3 Fraunces,serif;color:#2E2A26">Rain on the café window</div>
+            <div style="height:4px"></div>
+            <div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">Aug 24, 2026</div>
+            <div style="height:16px"></div>
+            <div style="font:400 16px/1.5 Inter,sans-serif;color:#5B554D">Today I went to a small café after class. It was raining, so I sat near the window and drank matcha while watching people outside.</div>
+            <div style="height:32px"></div>
+            <div style="display:flex;align-items:center;justify-content:center;background:#E88C7D;border-radius:999px;padding:16px 24px;font:600 15px/1 Inter,sans-serif;color:#fff">Back to Home</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P1 Stories -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Stories</div>
+        <div data-screen-label="P1 Stories" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;padding:0 16px;flex:none"><span style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Stories</span></div>
+          <div style="flex:1;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start">
+            <div style="background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.12)">
+              <div style="aspect-ratio:16/10;background:rgba(138,154,126,.35);display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:36px;color:#8A9A7E">auto_stories</span></div>
+              <div style="padding:16px"><div style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Japan Trip</div><div style="height:4px"></div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">4 memories</div></div>
+            </div>
+            <div style="background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.12)">
+              <div style="aspect-ratio:16/10;background:rgba(169,143,114,.35);display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:36px;color:#A98F72">auto_stories</span></div>
+              <div style="padding:16px"><div style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Summer 2026</div><div style="height:4px"></div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">2 memories</div></div>
+            </div>
+            <div style="background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.12)">
+              <div style="aspect-ratio:16/10;background:rgba(201,143,108,.35);display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:36px;color:#C98F6C">auto_stories</span></div>
+              <div style="padding:16px"><div style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">First Week at University</div><div style="height:4px"></div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">3 memories</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================ ROW 2 · WRITE ============================ -->
+  <div style="display:flex;flex-direction:column;gap:24px;margin-bottom:88px">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #D9CDB6;padding-bottom:12px">
+      <span style="font:600 13px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#948C80">Row 2</span>
+      <span style="font:600 22px/1.2 Fraunces,serif;color:#2E2A26">Write memory</span>
+      <span style="font:400 14px/1.4 Inter,sans-serif;color:#948C80">one page of paper, the character waiting on it, everything optional pushed below the fold of attention</span>
+    </div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap">
+
+      <!-- Write empty -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Empty · first open</div>
+        <div data-screen-label="Write memory (empty)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex:none">
+            <span class="ms" style="font-size:26px;color:#2E2A26">chevron_left</span>
+            <span style="font:500 13px/1 Inter,sans-serif;color:#948C80">Monday, 24 August</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;padding:8px 24px 0">
+            <div style="font:600 30px/1.2 Fraunces,serif;color:#2E2A26;letter-spacing:-.01em">What happened today?</div>
+            <div style="height:8px"></div>
+            <div style="font:400 15px/1.6 Inter,sans-serif;color:#5B554D;max-width:30ch">Write a few lines and turn this moment into a page in your story.</div>
+            <div style="height:20px"></div>
+            <div style="flex:1;background:#fff;border-radius:24px;padding:22px;box-shadow:0 6px 18px rgba(46,42,38,.10);background-image:repeating-linear-gradient(#fff 0 31px,#F3EAD9 31px 32px);background-position:0 12px;position:relative">
+              <div style="font:400 16px/32px Inter,sans-serif;color:#B8AEA0">A small thing is enough — the rain, the walk home, something someone said…</div>
+              <div style="position:absolute;left:22px;right:22px;bottom:18px;display:flex;align-items:flex-end;gap:10px">
+                <dc-import name="Character" hint-size="40px,46px" style="width:40px;height:46px;flex:none"></dc-import>
+                <div style="font:400 13px/1.4 Inter,sans-serif;color:#948C80;padding-bottom:6px">I'll be somewhere in this one.</div>
+              </div>
+            </div>
+            <div style="height:16px"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid #E7DDCB;border-radius:999px;background:rgba(255,255,255,.6)"><span class="ms" style="font-size:16px;color:#948C80">auto_stories</span><span style="font:500 13px/1 Inter,sans-serif;color:#5B554D">Add to a story</span></div>
+              <div style="display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid #E7DDCB;border-radius:999px;background:rgba(255,255,255,.6)"><span class="ms" style="font-size:16px;color:#948C80">event</span><span style="font:500 13px/1 Inter,sans-serif;color:#5B554D">Today</span></div>
+              <div style="display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid #E7DDCB;border-radius:999px;background:rgba(255,255,255,.6)"><span class="ms" style="font-size:16px;color:#948C80">weather_mix</span><span style="font:500 13px/1 Inter,sans-serif;color:#5B554D">Set a mood</span></div>
+            </div>
+            <div style="height:18px"></div>
+            <div style="display:flex;align-items:center;justify-content:center;background:#F0DDD8;border-radius:999px;padding:17px 24px;font:600 15px/1 Inter,sans-serif;color:#C99A90;margin-bottom:22px">Create my page</div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">The writing surface is the page, not a form field: no border, faint 32px rules, 16px text on a 32px rhythm. The character sits <em>inside</em> the paper so writing already feels like drawing. Optional controls are chips under the paper — never blocking the first keystroke.</div>
+        </sc-if>
+      </div>
+
+      <!-- Write filled -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Writing · options used</div>
+        <div data-screen-label="Write memory (writing)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex:none">
+            <span class="ms" style="font-size:26px;color:#2E2A26">chevron_left</span>
+            <span style="font:500 13px/1 Inter,sans-serif;color:#948C80">Saved as draft</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;padding:8px 24px 0">
+            <div style="font:600 22px/1.2 Fraunces,serif;color:#2E2A26">What happened today?</div>
+            <div style="height:16px"></div>
+            <div style="flex:1;background:#fff;border-radius:24px;padding:22px;box-shadow:0 6px 18px rgba(46,42,38,.10);background-image:repeating-linear-gradient(#fff 0 31px,#F3EAD9 31px 32px);background-position:0 12px;position:relative">
+              <div style="font:400 16px/32px Inter,sans-serif;color:#2E2A26">It rained the whole walk back from class, so I gave up and sat in the little café on the corner. Matcha, the window seat, everyone outside holding newspapers over their heads. I stayed an hour longer than I meant to.<span style="display:inline-block;width:2px;height:19px;background:#E88C7D;vertical-align:-4px;margin-left:2px"></span></div>
+              <div style="position:absolute;left:22px;right:22px;bottom:18px;display:flex;align-items:center;justify-content:space-between">
+                <div style="display:flex;align-items:flex-end;gap:10px">
+                  <dc-import name="Character" hint-size="40px,46px" style="width:40px;height:46px;flex:none"></dc-import>
+                  <div style="font:400 13px/1.4 Inter,sans-serif;color:#948C80;padding-bottom:6px">Enough to draw.</div>
+                </div>
+                <div style="font:500 12px/1 Inter,sans-serif;color:#B8AEA0">58 words</div>
+              </div>
+            </div>
+            <div style="height:16px"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid #D9C9BF;border-radius:999px;background:#F7E7E2"><span class="ms" style="font-size:16px;color:#D97764">auto_stories</span><span style="font:500 13px/1 Inter,sans-serif;color:#2E2A26">Summer 2026</span><span class="ms" style="font-size:14px;color:#948C80">close</span></div>
+              <div style="display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid #E7DDCB;border-radius:999px;background:rgba(255,255,255,.6)"><span class="ms" style="font-size:16px;color:#948C80">event</span><span style="font:500 13px/1 Inter,sans-serif;color:#5B554D">24 Aug</span></div>
+              <div style="display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid #D9C9BF;border-radius:999px;background:#F7E7E2"><span style="font:500 13px/1 Inter,sans-serif;color:#2E2A26">quiet</span><span class="ms" style="font-size:14px;color:#948C80">close</span></div>
+            </div>
+            <div style="height:18px"></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E88C7D;border-radius:999px;padding:17px 24px;box-shadow:0 8px 18px rgba(217,119,100,.28);margin-bottom:22px">
+              <span style="font:600 15px/1 Inter,sans-serif;color:#fff">Illustrate this memory</span>
+              <span class="ms" style="font-size:18px;color:#fff">arrow_forward</span>
+            </div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Once there are words the headline shrinks to give the paper room, the character line changes from invitation to encouragement, and the CTA earns its colour. Chosen chips fill with a coral tint; the mood chip is a hint to the illustrator, not metadata the user must maintain.</div>
+        </sc-if>
+      </div>
+
+      <!-- Mood picker sheet -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Optional · story &amp; mood pickers</div>
+        <div data-screen-label="Write memory (mood sheet)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+          <div style="position:absolute;inset:0;background:rgba(46,42,38,.34)"></div>
+          <div style="position:absolute;top:44px;left:24px;right:24px;font:600 22px/1.2 Fraunces,serif;color:#2E2A26;opacity:.35">What happened today?</div>
+          <div style="position:relative;background:#FBF5EC;border-radius:32px 32px 36px 36px;padding:24px 24px 30px;box-shadow:0 -12px 40px rgba(46,42,38,.18)">
+            <div style="width:44px;height:4px;border-radius:999px;background:#E7DDCB;margin:0 auto 20px"></div>
+            <div style="font:600 20px/1.3 Fraunces,serif;color:#2E2A26">How did it feel?</div>
+            <div style="height:6px"></div>
+            <div style="font:400 14px/1.5 Inter,sans-serif;color:#5B554D">Optional. It only nudges the light and colour of your illustration.</div>
+            <div style="height:18px"></div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <div style="padding:11px 16px;border-radius:999px;border:1px solid #D9C9BF;background:#F7E7E2;font:500 14px/1 Inter,sans-serif;color:#2E2A26">quiet</div>
+              <div style="padding:11px 16px;border-radius:999px;border:1px solid #E7DDCB;background:#fff;font:500 14px/1 Inter,sans-serif;color:#5B554D">joyful</div>
+              <div style="padding:11px 16px;border-radius:999px;border:1px solid #E7DDCB;background:#fff;font:500 14px/1 Inter,sans-serif;color:#5B554D">bittersweet</div>
+              <div style="padding:11px 16px;border-radius:999px;border:1px solid #E7DDCB;background:#fff;font:500 14px/1 Inter,sans-serif;color:#5B554D">restless</div>
+              <div style="padding:11px 16px;border-radius:999px;border:1px solid #E7DDCB;background:#fff;font:500 14px/1 Inter,sans-serif;color:#5B554D">cosy</div>
+              <div style="padding:11px 16px;border-radius:999px;border:1px solid #E7DDCB;background:#fff;font:500 14px/1 Inter,sans-serif;color:#5B554D">proud</div>
+            </div>
+            <div style="height:24px"></div>
+            <div style="height:1px;background:#E7DDCB"></div>
+            <div style="height:20px"></div>
+            <div style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Part of a story?</div>
+            <div style="height:12px"></div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:#fff;box-shadow:0 4px 12px rgba(46,42,38,.08)">
+                <div style="width:36px;height:36px;border-radius:12px;background:rgba(169,143,114,.35);display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:20px;color:#A98F72">auto_stories</span></div>
+                <div style="flex:1"><div style="font:600 15px/1.3 Inter,sans-serif;color:#2E2A26">Summer 2026</div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">2 memories</div></div>
+                <span class="ms" style="font-size:22px;color:#D97764">check_circle</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:rgba(255,255,255,.55)">
+                <div style="width:36px;height:36px;border-radius:12px;background:rgba(138,154,126,.3);display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:20px;color:#8A9A7E">auto_stories</span></div>
+                <div style="flex:1"><div style="font:600 15px/1.3 Inter,sans-serif;color:#2E2A26">Japan Trip</div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">4 memories</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;border:1px dashed #DCCFB9">
+                <div style="width:36px;height:36px;border-radius:12px;background:#F3EAD9;display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:20px;color:#948C80">add</span></div>
+                <div style="flex:1;font:500 15px/1.3 Inter,sans-serif;color:#5B554D">Start a new story</div>
+              </div>
+            </div>
+            <div style="height:22px"></div>
+            <div style="display:flex;align-items:center;justify-content:center;background:#E88C7D;border-radius:999px;padding:16px 24px;font:600 15px/1 Inter,sans-serif;color:#fff">Done</div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Both optional controls live in one calm sheet rather than two modals. Mood is framed as a feeling, not a parameter, and the copy says plainly what it affects. Date uses the platform picker.</div>
+        </sc-if>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================ ROW 3 · GENERATE ============================ -->
+  <div style="display:flex;flex-direction:column;gap:24px;margin-bottom:88px">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #D9CDB6;padding-bottom:12px">
+      <span style="font:600 13px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#948C80">Row 3</span>
+      <span style="font:600 22px/1.2 Fraunces,serif;color:#2E2A26">Generating &amp; failure</span>
+      <span style="font:400 14px/1.4 Inter,sans-serif;color:#948C80">no percentages — one indeterminate breath, two lines of copy, the writing always visible underneath</span>
+    </div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap">
+
+      <!-- Generating stage 1 -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Generating · 0–6s</div>
+        <div data-screen-label="Generating (stage 1)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;flex:none"></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:0 32px">
+            <div style="position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;flex:none">
+              <div style="position:absolute;width:150px;height:150px;border-radius:50%;border:1px solid #E88C7D;animation:ilj-pulse 3.4s ease-out infinite"></div>
+              <div style="position:absolute;width:150px;height:150px;border-radius:50%;border:1px solid #E88C7D;animation:ilj-pulse 3.4s ease-out infinite 1.13s"></div>
+              <div style="position:absolute;width:150px;height:150px;border-radius:50%;border:1px solid #E88C7D;animation:ilj-pulse 3.4s ease-out infinite 2.26s"></div>
+              <div style="position:absolute;width:132px;height:132px;border-radius:50%;background:radial-gradient(circle,#F7E7E2 0%,rgba(247,231,226,0) 70%)"></div>
+              <div style="position:relative;width:96px;height:110px;animation:ilj-float 4.2s ease-in-out infinite">
+                <dc-import name="Character" hint-size="96px,110px" style="width:96px;height:110px"></dc-import>
+              </div>
+            </div>
+            <div style="height:8px"></div>
+            <div style="font:600 24px/1.35 Fraunces,serif;color:#2E2A26;text-align:center;max-width:22ch">Turning your memory into an illustration…</div>
+            <div style="height:14px"></div>
+            <div style="display:flex;gap:7px">
+              <div style="width:6px;height:6px;border-radius:50%;background:#E88C7D;animation:ilj-dot 1.5s ease-in-out infinite"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#E88C7D;animation:ilj-dot 1.5s ease-in-out infinite .25s"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#E88C7D;animation:ilj-dot 1.5s ease-in-out infinite .5s"></div>
+            </div>
+            <div style="height:36px"></div>
+            <div style="width:100%;background:#fff;border-radius:24px;padding:20px;box-shadow:0 6px 18px rgba(46,42,38,.08);position:relative;overflow:hidden">
+              <div style="font:500 11px/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8AEA0">Your words</div>
+              <div style="height:10px"></div>
+              <div style="font:400 15px/1.7 Inter,sans-serif;color:#5B554D">It rained the whole walk back from class, so I gave up and sat in the little café on the corner. Matcha, the window seat…</div>
+              <div style="position:absolute;top:0;bottom:0;width:60%;background:linear-gradient(90deg,rgba(251,245,236,0),rgba(251,245,236,.75),rgba(251,245,236,0));animation:ilj-sweep 3.6s ease-in-out infinite"></div>
+            </div>
+            <div style="height:20px"></div>
+            <div style="font:400 13px/1.5 Inter,sans-serif;color:#948C80;text-align:center">You can leave this screen — we'll finish and keep it in your journal.</div>
+          </div>
+          <div style="height:76px;flex:none"></div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Three slow coral rings breathing outward from the character — indeterminate, ~3.4s per ring, nothing that implies a percentage. The user's own words stay on screen with a soft light sweep, so the wait is spent re-reading the memory rather than watching a spinner.</div>
+        </sc-if>
+      </div>
+
+      <!-- Generating stage 2 -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Generating · after ~6s</div>
+        <div data-screen-label="Generating (stage 2)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;flex:none"></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:0 32px">
+            <div style="position:relative;width:100%;height:330px;border-radius:28px;background:#F3EAD9;overflow:hidden;box-shadow:0 6px 18px rgba(46,42,38,.08);display:flex;align-items:center;justify-content:center">
+              <div style="position:absolute;left:8%;right:8%;top:18%;height:1px;background:#E4D6BE"></div>
+              <div style="position:absolute;left:8%;right:38%;top:34%;height:1px;background:#E4D6BE"></div>
+              <div style="position:absolute;left:8%;right:8%;bottom:22%;height:1px;background:#E4D6BE"></div>
+              <div style="position:absolute;left:14%;bottom:22%;width:120px;height:80px;border:1px solid #E4D6BE;border-radius:12px"></div>
+              <div style="position:relative;width:104px;height:120px;opacity:.55;animation:ilj-float 4.6s ease-in-out infinite">
+                <dc-import name="Character" hint-size="104px,120px" style="width:104px;height:120px"></dc-import>
+              </div>
+              <div style="position:absolute;top:0;bottom:0;width:45%;background:linear-gradient(90deg,rgba(251,245,236,0),rgba(255,255,255,.7),rgba(251,245,236,0));animation:ilj-sweep 3.2s ease-in-out infinite"></div>
+            </div>
+            <div style="height:28px"></div>
+            <div style="font:600 22px/1.4 Fraunces,serif;color:#2E2A26;text-align:center;max-width:24ch">Finding the little details that make this moment yours.</div>
+            <div style="height:14px"></div>
+            <div style="display:flex;gap:7px">
+              <div style="width:6px;height:6px;border-radius:50%;background:#E88C7D;animation:ilj-dot 1.5s ease-in-out infinite"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#E88C7D;animation:ilj-dot 1.5s ease-in-out infinite .25s"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#E88C7D;animation:ilj-dot 1.5s ease-in-out infinite .5s"></div>
+            </div>
+            <div style="height:26px"></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid #EFE3CF">
+              <dc-import name="Character" hint-size="24px,28px" style="width:24px;height:28px;flex:none"></dc-import>
+              <span style="font:400 13px/1.4 Inter,sans-serif;color:#5B554D">Keeping you looking like you</span>
+            </div>
+          </div>
+          <div style="height:76px;flex:none"></div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Second stage swaps the ripple for the illustration frame itself, blocked out as faint composition lines with the character already standing in place. It reads as a drawing in progress and sets the eye where the finished image will land. The character-consistency promise is stated once, quietly.</div>
+        </sc-if>
+      </div>
+
+      <!-- Failure -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Failure</div>
+        <div data-screen-label="Generation failure" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;padding:0 20px;flex:none"><span class="ms" style="font-size:26px;color:#2E2A26">chevron_left</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:0 32px">
+            <div style="width:100%;height:300px;border-radius:28px;border:1.5px dashed #DCCFB9;background:rgba(243,234,217,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+              <div style="width:88px;height:101px;opacity:.75">
+                <dc-import name="Character" hint-size="88px,101px" style="width:88px;height:101px"></dc-import>
+              </div>
+              <div style="font:500 12px/1.3 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#B8AEA0">no illustration yet</div>
+            </div>
+            <div style="height:28px"></div>
+            <div style="font:600 25px/1.35 Fraunces,serif;color:#2E2A26;text-align:center;max-width:22ch">Your illustration got a little lost along the way.</div>
+            <div style="height:10px"></div>
+            <div style="font:400 15px/1.6 Inter,sans-serif;color:#5B554D;text-align:center;max-width:28ch">Let's try again — your words are safe exactly as you wrote them.</div>
+            <div style="height:26px"></div>
+            <div style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#E88C7D;border-radius:999px;padding:17px 24px;box-shadow:0 8px 18px rgba(217,119,100,.28)">
+              <span class="ms" style="font-size:18px;color:#fff">refresh</span>
+              <span style="font:600 15px/1 Inter,sans-serif;color:#fff">Try again</span>
+            </div>
+            <div style="height:12px"></div>
+            <div style="width:100%;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid #E7DDCB;border-radius:999px;padding:16px 24px;font:600 15px/1 Inter,sans-serif;color:#2E2A26">Keep just the writing for now</div>
+            <div style="height:18px"></div>
+            <div style="font:400 13px/1.5 Inter,sans-serif;color:#948C80;text-align:center;max-width:30ch">Saved to your journal either way. You can illustrate it whenever you like.</div>
+          </div>
+          <div style="height:76px;flex:none"></div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Failure keeps the journal-page shell — nothing red, no error icon, no code. The empty illustration frame becomes a dashed sketch outline with the character still in it, so the page reads as unfinished rather than broken. The reassurance ("your words are safe") appears twice because that is the actual fear.</div>
+        </sc-if>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================ ROW 4 · JOURNAL PAGE ============================ -->
+  <div style="display:flex;flex-direction:column;gap:24px;margin-bottom:88px">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #D9CDB6;padding-bottom:12px">
+      <span style="font:600 13px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#948C80">Row 4</span>
+      <span style="font:600 22px/1.2 Fraunces,serif;color:#2E2A26">Journal page, versions &amp; the updated hub</span>
+      <span style="font:400 14px/1.4 Inter,sans-serif;color:#948C80">a spread, not a post</span>
+    </div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap">
+
+      <!-- Journal page success -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Success · journal page</div>
+        <div data-screen-label="Journal page (success)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex:none">
+            <span class="ms" style="font-size:26px;color:#2E2A26">chevron_left</span>
+            <div style="display:flex;gap:20px"><span class="ms" style="font-size:22px;color:#5B554D">edit</span><span class="ms" style="font-size:22px;color:#5B554D">more_horiz</span></div>
+          </div>
+          <div style="flex:1;padding:0 24px;overflow:hidden;display:flex;flex-direction:column">
+            <div style="font:500 12px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#B8AEA0">Monday · 24 August 2026</div>
+            <div style="height:10px"></div>
+            <div style="font:600 30px/1.2 Fraunces,serif;color:#2E2A26;letter-spacing:-.01em">Rain on the café window</div>
+            <div style="height:18px"></div>
+            <div style="position:relative;width:100%;height:360px;border-radius:24px;overflow:hidden;box-shadow:0 12px 28px rgba(46,42,38,.16);flex:none">
+              <image-slot id="ilj-hero-1" shape="rect" placeholder="illustration · 4:5"></image-slot>
+            </div>
+            <div style="height:12px"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:8px">
+                <dc-import name="Character" hint-size="22px,25px" style="width:22px;height:25px;flex:none"></dc-import>
+                <span style="font:400 12px/1.4 Inter,sans-serif;color:#948C80">You're by the window</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font:500 12px/1 Inter,sans-serif;color:#948C80">2 of 2</span>
+                <span class="ms" style="font-size:18px;color:#D97764">refresh</span>
+              </div>
+            </div>
+            <div style="height:22px"></div>
+            <div style="width:32px;height:1px;background:#E0D3BC"></div>
+            <div style="height:18px"></div>
+            <div style="font:400 16px/1.75 Inter,sans-serif;color:#4A443C">It rained the whole walk back from class, so I gave up and sat in the little café on the corner. Matcha, the window seat, everyone outside holding newspapers over their heads.</div>
+            <div style="height:16px"></div>
+            <div style="display:flex;gap:8px">
+              <div style="display:flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;background:#F3EAD9"><span class="ms" style="font-size:15px;color:#A98F72">auto_stories</span><span style="font:500 12px/1 Inter,sans-serif;color:#5B554D">Summer 2026</span></div>
+              <div style="padding:8px 13px;border-radius:999px;background:#F3EAD9;font:500 12px/1 Inter,sans-serif;color:#5B554D">quiet</div>
+            </div>
+          </div>
+          <div style="padding:14px 24px 22px;background:linear-gradient(180deg,rgba(251,245,236,0),#FBF5EC 40%);display:flex;gap:10px;flex:none">
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #E7DDCB;border-radius:999px;padding:15px"><span class="ms" style="font-size:18px;color:#2E2A26">refresh</span><span style="font:600 14px/1 Inter,sans-serif;color:#2E2A26">Draw again</span></div>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#E88C7D;border-radius:999px;padding:15px;box-shadow:0 8px 18px rgba(217,119,100,.28);font:600 14px/1 Inter,sans-serif;color:#fff">Done</div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Editorial order: dateline → serif title → illustration hero (4:5, the deepest shadow on the screen) → a caption line that names where the character is → short rule → the memory in 16/1.75. The illustration is the biggest thing on the page; the writing is the only thing set in a reading measure. Version count and regenerate sit in the caption line, so they read like a photographer's contact sheet note rather than app chrome.</div>
+        </sc-if>
+      </div>
+
+      <!-- Version rail -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Regenerate · versions</div>
+        <div data-screen-label="Journal page (versions)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex:none">
+            <span class="ms" style="font-size:26px;color:#2E2A26">chevron_left</span>
+            <div style="display:flex;gap:20px"><span class="ms" style="font-size:22px;color:#5B554D">edit</span><span class="ms" style="font-size:22px;color:#5B554D">more_horiz</span></div>
+          </div>
+          <div style="flex:1;padding:0 24px;overflow:hidden;display:flex;flex-direction:column">
+            <div style="font:500 12px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#B8AEA0">Monday · 24 August 2026</div>
+            <div style="height:10px"></div>
+            <div style="font:600 30px/1.2 Fraunces,serif;color:#2E2A26;letter-spacing:-.01em">Rain on the café window</div>
+            <div style="height:18px"></div>
+            <div style="position:relative;width:100%;height:330px;border-radius:24px;overflow:hidden;box-shadow:0 12px 28px rgba(46,42,38,.16);flex:none">
+              <image-slot id="ilj-hero-2" shape="rect" placeholder="illustration · version 3"></image-slot>
+            </div>
+            <div style="height:16px"></div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:52px;height:64px;border-radius:12px;overflow:hidden;opacity:.65;flex:none"><image-slot id="ilj-v1" shape="rect" placeholder="v1"></image-slot></div>
+              <div style="width:52px;height:64px;border-radius:12px;overflow:hidden;opacity:.65;flex:none"><image-slot id="ilj-v2" shape="rect" placeholder="v2"></image-slot></div>
+              <div style="width:52px;height:64px;border-radius:12px;overflow:hidden;flex:none;box-shadow:0 0 0 2px #E88C7D,0 0 0 4px #FBF5EC"><image-slot id="ilj-v3" shape="rect" placeholder="v3"></image-slot></div>
+              <div style="width:52px;height:64px;border-radius:12px;flex:none;border:1px dashed #DCCFB9;display:flex;align-items:center;justify-content:center;background:rgba(243,234,217,.5)"><span class="ms" style="font-size:20px;color:#B8AEA0">add</span></div>
+              <div style="flex:1;text-align:right;font:500 12px/1.4 Inter,sans-serif;color:#948C80">Version 3 of 3<br><span style="font:400 12px/1.4 Inter,sans-serif;color:#B8AEA0">Tap one to keep it</span></div>
+            </div>
+            <div style="height:20px"></div>
+            <div style="font:400 15px/1.7 Inter,sans-serif;color:#4A443C">It rained the whole walk back from class, so I gave up and sat in the little café on the corner…</div>
+            <div style="height:18px"></div>
+            <div style="display:flex;gap:10px">
+              <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #E7DDCB;border-radius:999px;padding:15px"><span class="ms" style="font-size:18px;color:#2E2A26">refresh</span><span style="font:600 14px/1 Inter,sans-serif;color:#2E2A26">Draw again</span></div>
+              <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#E88C7D;border-radius:999px;padding:15px;box-shadow:0 8px 18px rgba(217,119,100,.28);font:600 14px/1 Inter,sans-serif;color:#fff">Done</div>
+            </div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Versions become a small contact-sheet rail under the hero: earlier ones dimmed, the current one ringed in coral, a dashed tile for the next. While a new version renders, that dashed tile shows the breathing ripple in miniature — the page never leaves. Tapping a thumbnail swaps the hero; nothing is discarded.</div>
+        </sc-if>
+      </div>
+
+      <!-- Regenerate confirm sheet -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Regenerate · confirm</div>
+        <div data-screen-label="Regenerate confirm" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="flex:1;padding:24px 24px 0;overflow:hidden;display:flex;flex-direction:column">
+            <div style="font:500 12px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#B8AEA0">Monday · 24 August 2026</div>
+            <div style="height:10px"></div>
+            <div style="font:600 30px/1.2 Fraunces,serif;color:#2E2A26;letter-spacing:-.01em">Rain on the café window</div>
+            <div style="height:18px"></div>
+            <div style="height:300px;border-radius:24px;overflow:hidden;box-shadow:0 12px 28px rgba(46,42,38,.16);flex:none"><image-slot id="ilj-hero-3" shape="rect" placeholder="illustration"></image-slot></div>
+          </div>
+          <div style="position:absolute;inset:0;background:rgba(46,42,38,.34)"></div>
+          <div style="position:absolute;left:0;right:0;bottom:0;background:#FBF5EC;border-radius:32px 32px 36px 36px;padding:22px 24px 30px;box-shadow:0 -14px 40px rgba(46,42,38,.20)">
+            <div style="width:44px;height:4px;border-radius:999px;background:#E7DDCB;margin:0 auto 18px"></div>
+            <div style="font:600 20px/1.3 Fraunces,serif;color:#2E2A26">Draw this memory again?</div>
+            <div style="height:8px"></div>
+            <div style="font:400 14px/1.6 Inter,sans-serif;color:#5B554D">We'll make a new illustration from the same words. Your earlier versions stay here — you can go back to any of them.</div>
+            <div style="height:18px"></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:18px;background:rgba(243,234,217,.7)">
+              <dc-import name="Character" hint-size="26px,30px" style="width:26px;height:30px;flex:none"></dc-import>
+              <span style="font:400 13px/1.45 Inter,sans-serif;color:#5B554D">You'll look the same in every version.</span>
+            </div>
+            <div style="height:18px"></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E88C7D;border-radius:999px;padding:16px;box-shadow:0 8px 18px rgba(217,119,100,.28)"><span class="ms" style="font-size:18px;color:#fff">refresh</span><span style="font:600 15px/1 Inter,sans-serif;color:#fff">Draw again</span></div>
+            <div style="height:8px"></div>
+            <div style="display:flex;align-items:center;justify-content:center;padding:14px;font:600 15px/1 Inter,sans-serif;color:#5B554D">Not now</div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Regenerate is confirmed once, in a sheet, because it costs time and the user should know nothing is lost. The page stays visible behind it, so this reads as a pause rather than a new screen.</div>
+        </sc-if>
+      </div>
+
+      <!-- Updated home -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Updated home</div>
+        <div data-screen-label="Home (updated)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+            <div style="padding:6px 24px 0;display:flex;align-items:center;gap:16px">
+              <div style="flex:1">
+                <div style="font:400 14px/1.5 Inter,sans-serif;color:#5B554D">Welcome back</div>
+                <div style="font:600 28px/1.25 Fraunces,serif;color:#2E2A26">Your story continues</div>
+              </div>
+              <dc-import name="Character" hint-size="66px,76px" style="width:66px;height:76px"></dc-import>
+            </div>
+            <div style="padding:10px 24px">
+              <div style="background:#fff;border-radius:28px;padding:18px;box-shadow:0 8px 20px rgba(46,42,38,.10)">
+                <div style="font:600 22px/1.3 Fraunces,serif;color:#2E2A26">What happened today?</div>
+                <div style="height:6px"></div>
+                <div style="font:400 14px/1.55 Inter,sans-serif;color:#5B554D">Write a few lines and turn this moment into a page in your story.</div>
+                <div style="height:14px"></div>
+                <div style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E88C7D;border-radius:999px;padding:16px 24px;box-shadow:0 8px 18px rgba(217,119,100,.26)">
+                  <span class="ms" style="font-size:18px;color:#fff">edit</span>
+                  <span style="font:600 15px/1 Inter,sans-serif;color:#fff">Write a memory</span>
+                </div>
+              </div>
+            </div>
+            <div style="padding:0 24px 10px;display:flex;align-items:baseline;justify-content:space-between">
+              <span style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Recent memories</span>
+              <span style="font:500 13px/1.3 Inter,sans-serif;color:#948C80">Aug 2026</span>
+            </div>
+            <div style="padding:0 24px 18px;display:flex;gap:12px">
+              <div style="width:150px;flex:none">
+                <div style="height:142px;border-radius:20px;overflow:hidden;box-shadow:0 8px 20px rgba(46,42,38,.14)"><image-slot id="ilj-recent-1" shape="rect" placeholder="illustration"></image-slot></div>
+                <div style="height:10px"></div>
+                <div style="font:500 11px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#B8AEA0">24 Aug</div>
+                <div style="height:4px"></div>
+                <div style="font:600 15px/1.3 Fraunces,serif;color:#2E2A26">Rain on the café window</div>
+              </div>
+              <div style="width:150px;flex:none">
+                <div style="height:142px;border-radius:20px;overflow:hidden;box-shadow:0 8px 20px rgba(46,42,38,.14)"><image-slot id="ilj-recent-2" shape="rect" placeholder="illustration"></image-slot></div>
+                <div style="height:10px"></div>
+                <div style="font:500 11px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#B8AEA0">21 Aug</div>
+                <div style="height:4px"></div>
+                <div style="font:600 15px/1.3 Fraunces,serif;color:#2E2A26">The long way round the lake</div>
+              </div>
+              <div style="width:60px;flex:none">
+                <div style="height:142px;border-radius:20px;background:#F3EAD9;display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:22px;color:#B8AEA0">chevron_right</span></div>
+              </div>
+            </div>
+            <div style="padding:0 24px 10px;display:flex;align-items:center;justify-content:space-between">
+              <span style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Stories</span>
+              <span style="font:600 14px/1.3 Inter,sans-serif;color:#5B554D">See all</span>
+            </div>
+            <div style="padding:0 24px;display:flex;gap:14px">
+              <div style="width:160px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.10)">
+                <div style="height:74px"><image-slot id="ilj-story-h1" shape="rect" placeholder="cover"></image-slot></div>
+                <div style="padding:11px 14px 12px"><div style="font:600 15px/1.3 Inter,sans-serif;color:#2E2A26">Summer 2026</div><div style="height:3px"></div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">3 memories</div></div>
+              </div>
+              <div style="width:160px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.10)">
+                <div style="height:74px"><image-slot id="ilj-story-h2" shape="rect" placeholder="cover"></image-slot></div>
+                <div style="padding:11px 14px 12px"><div style="font:600 15px/1.3 Inter,sans-serif;color:#2E2A26">Japan Trip</div><div style="height:3px"></div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">4 memories</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="height:76px;background:#fff;border-top:1px solid #E7DDCB;display:flex;align-items:center;justify-content:space-around;flex:none">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#D97764">home</span><span style="font:500 12px/1 Inter,sans-serif;color:#D97764">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#948C80">auto_stories</span><span style="font:500 12px/1 Inter,sans-serif;color:#948C80">Stories</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#948C80">face</span><span style="font:500 12px/1 Inter,sans-serif;color:#948C80">Character</span></div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Same skeleton as Phase 1 — greeting, character, prompt card, recent memories, stories, three-item nav. The only change: recent memories become tall illustration cards (portrait, date over serif title) instead of text-only tiles, and story covers use the newest illustration in the story. Nothing was added, nothing moved.</div>
+        </sc-if>
+      </div>
+
+      <!-- Updated stories -->
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Updated stories</div>
+        <div data-screen-label="Stories (updated)" style="width:390px;height:844px;background:#FBF5EC;border-radius:36px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;position:relative;display:flex;flex-direction:column">
+          <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none"><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">9:41</span><span style="width:18px;height:9px;border:1px solid #948C80;border-radius:2px;display:block"></span></div>
+          <div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex:none"><span style="font:600 16px/1.3 Inter,sans-serif;color:#2E2A26">Stories</span><span class="ms" style="font-size:22px;color:#5B554D">add</span></div>
+          <div style="flex:1;padding:8px 24px 0;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div style="background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.10)">
+                <div style="height:120px"><image-slot id="ilj-story-1" shape="rect" placeholder="latest illustration"></image-slot></div>
+                <div style="padding:14px"><div style="font:600 15px/1.3 Fraunces,serif;color:#2E2A26">Japan Trip</div><div style="height:4px"></div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">4 memories</div></div>
+              </div>
+              <div style="background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.10)">
+                <div style="height:120px"><image-slot id="ilj-story-2" shape="rect" placeholder="latest illustration"></image-slot></div>
+                <div style="padding:14px"><div style="font:600 15px/1.3 Fraunces,serif;color:#2E2A26">Summer 2026</div><div style="height:4px"></div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">3 memories</div></div>
+              </div>
+              <div style="background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 6px 16px rgba(46,42,38,.10)">
+                <div style="height:120px"><image-slot id="ilj-story-3" shape="rect" placeholder="latest illustration"></image-slot></div>
+                <div style="padding:14px"><div style="font:600 15px/1.3 Fraunces,serif;color:#2E2A26">First Week at University</div><div style="height:4px"></div><div style="font:500 12px/1.3 Inter,sans-serif;color:#948C80">3 memories</div></div>
+              </div>
+              <div style="border-radius:24px;border:1px dashed #DCCFB9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:198px;background:rgba(243,234,217,.4)">
+                <span class="ms" style="font-size:24px;color:#B8AEA0">add</span>
+                <span style="font:500 13px/1.3 Inter,sans-serif;color:#948C80;text-align:center;max-width:12ch">New story</span>
+              </div>
+            </div>
+            <div style="height:24px"></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:24px;background:rgba(255,255,255,.6)">
+              <dc-import name="Character" hint-size="44px,undefinedpx" style="width:44px;height:undefinedpx;flex:none"></dc-import>
+              <div style="flex:1;font:400 13px/1.55 Inter,sans-serif;color:#5B554D">Memories you haven't filed yet stay on Home. Drop them into a story whenever you feel like it.</div>
+            </div>
+          </div>
+          <div style="height:76px;background:#fff;border-top:1px solid #E7DDCB;display:flex;align-items:center;justify-content:space-around;flex:none">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#948C80">home</span><span style="font:500 12px/1 Inter,sans-serif;color:#948C80">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#D97764">auto_stories</span><span style="font:500 12px/1 Inter,sans-serif;color:#D97764">Stories</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><span class="ms" style="font-size:24px;color:#948C80">face</span><span style="font:500 12px/1 Inter,sans-serif;color:#948C80">Character</span></div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Minimal change: the flat colour cover is replaced by the story's newest illustration, titles move to Fraunces to match journal pages, and one character note explains where unfiled memories live. Grid, radii and counts are Phase 1's.</div>
+        </sc-if>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================ ROW 5 · RESPONSIVE ============================ -->
+  <sc-if value="{{ showResponsive }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #D9CDB6;padding-bottom:12px">
+      <span style="font:600 13px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#948C80">Row 5</span>
+      <span style="font:600 22px/1.2 Fraunces,serif;color:#2E2A26">Responsive behaviour</span>
+      <span style="font:400 14px/1.4 Inter,sans-serif;color:#948C80">one rule: below 720 the page is a column, above it the page is a spread</span>
+    </div>
+
+    <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+      <!-- Tablet -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Tablet · 834pt — two-page spread</div>
+        <div data-screen-label="Journal page (tablet)" style="width:834px;height:700px;background:#FBF5EC;border-radius:24px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;flex:none">
+            <div style="display:flex;align-items:center;gap:14px"><span class="ms" style="font-size:24px;color:#2E2A26">chevron_left</span><span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#B8AEA0">Monday · 24 August 2026</span></div>
+            <div style="display:flex;gap:22px"><span class="ms" style="font-size:22px;color:#5B554D">edit</span><span class="ms" style="font-size:22px;color:#5B554D">more_horiz</span></div>
+          </div>
+          <div style="flex:1;display:flex;gap:40px;padding:8px 40px 32px;min-height:0">
+            <div style="flex:1.05;display:flex;flex-direction:column;min-height:0">
+              <div style="flex:1;border-radius:20px;overflow:hidden;box-shadow:0 14px 30px rgba(46,42,38,.16);min-height:0"><image-slot id="ilj-tablet-hero" shape="rect" placeholder="illustration"></image-slot></div>
+              <div style="height:14px"></div>
+              <div style="display:flex;align-items:center;gap:10px;flex:none">
+                <div style="width:44px;height:54px;border-radius:10px;overflow:hidden;opacity:.6"><image-slot id="ilj-t-v1" shape="rect" placeholder="v1"></image-slot></div>
+                <div style="width:44px;height:54px;border-radius:10px;overflow:hidden;box-shadow:0 0 0 2px #E88C7D,0 0 0 4px #FBF5EC"><image-slot id="ilj-t-v2" shape="rect" placeholder="v2"></image-slot></div>
+                <div style="width:44px;height:54px;border-radius:10px;border:1px dashed #DCCFB9;display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:18px;color:#B8AEA0">add</span></div>
+                <div style="flex:1"></div>
+                <div style="display:flex;align-items:center;gap:8px;border:1px solid #E7DDCB;border-radius:999px;padding:11px 18px"><span class="ms" style="font-size:17px;color:#2E2A26">refresh</span><span style="font:600 13px/1 Inter,sans-serif;color:#2E2A26">Draw again</span></div>
+              </div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;padding-top:8px">
+              <div style="font:600 34px/1.15 Fraunces,serif;color:#2E2A26;letter-spacing:-.01em">Rain on the café window</div>
+              <div style="height:18px"></div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <dc-import name="Character" hint-size="24px,28px" style="width:24px;height:28px;flex:none"></dc-import>
+                <span style="font:400 12px/1.4 Inter,sans-serif;color:#948C80">You're by the window</span>
+              </div>
+              <div style="height:18px"></div>
+              <div style="width:32px;height:1px;background:#E0D3BC"></div>
+              <div style="height:18px"></div>
+              <div style="font:400 17px/1.8 Inter,sans-serif;color:#4A443C;max-width:46ch">It rained the whole walk back from class, so I gave up and sat in the little café on the corner. Matcha, the window seat, everyone outside holding newspapers over their heads. I stayed an hour longer than I meant to, and nobody was waiting for me anywhere, which felt like a small luxury.</div>
+              <div style="height:20px"></div>
+              <div style="display:flex;gap:8px">
+                <div style="display:flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;background:#F3EAD9"><span class="ms" style="font-size:15px;color:#A98F72">auto_stories</span><span style="font:500 12px/1 Inter,sans-serif;color:#5B554D">Summer 2026</span></div>
+                <div style="padding:8px 13px;border-radius:999px;background:#F3EAD9;font:500 12px/1 Inter,sans-serif;color:#5B554D">quiet</div>
+              </div>
+              <div style="flex:1"></div>
+              <div style="display:flex;align-items:center;justify-content:center;background:#E88C7D;border-radius:999px;padding:15px 40px;font:600 14px/1 Inter,sans-serif;color:#fff;align-self:flex-start;box-shadow:0 8px 18px rgba(217,119,100,.26)">Done</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Narrow browser -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Narrow browser · 480 — phone layout, wider gutters</div>
+        <div data-screen-label="Journal page (narrow)" style="width:480px;height:700px;background:#FBF5EC;border-radius:24px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;flex:none">
+            <span class="ms" style="font-size:24px;color:#2E2A26">chevron_left</span>
+            <div style="display:flex;gap:22px"><span class="ms" style="font-size:22px;color:#5B554D">edit</span><span class="ms" style="font-size:22px;color:#5B554D">more_horiz</span></div>
+          </div>
+          <div style="flex:1;padding:0 40px;display:flex;flex-direction:column;min-height:0">
+            <div style="font:500 12px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#B8AEA0">Monday · 24 August 2026</div>
+            <div style="height:10px"></div>
+            <div style="font:600 30px/1.2 Fraunces,serif;color:#2E2A26">Rain on the café window</div>
+            <div style="height:18px"></div>
+            <div style="height:330px;border-radius:20px;overflow:hidden;box-shadow:0 12px 28px rgba(46,42,38,.16);flex:none"><image-slot id="ilj-narrow-hero" shape="rect" placeholder="illustration"></image-slot></div>
+            <div style="height:12px"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:8px">
+                <dc-import name="Character" hint-size="22px,25px" style="width:22px;height:25px;flex:none"></dc-import>
+                <span style="font:400 12px/1.4 Inter,sans-serif;color:#948C80">You're by the window</span>
+              </div>
+              <span style="font:500 12px/1 Inter,sans-serif;color:#948C80">2 of 2</span>
+            </div>
+            <div style="height:20px"></div>
+            <div style="font:400 16px/1.75 Inter,sans-serif;color:#4A443C;max-width:60ch">It rained the whole walk back from class, so I gave up and sat in the little café on the corner. Matcha, the window seat, everyone outside holding newspapers over their heads.</div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="width:480px;font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">Under 720 nothing re-flows — gutters grow from 24 to 40 and the text measure caps at 60ch so lines never run long. The illustration keeps 4:5 rather than stretching.</div>
+        </sc-if>
+      </div>
+
+      <!-- Desktop -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#948C80">Laptop / desktop · 1280+ — spread on a desk, content capped at 1120</div>
+        <div data-screen-label="Journal page (desktop)" style="width:1280px;height:760px;background:#F3EAD9;border-radius:24px;border:1px solid #E7DDCB;box-shadow:0 18px 44px rgba(46,42,38,.12);overflow:hidden;display:flex">
+          <div style="width:236px;flex:none;background:#FBF5EC;border-right:1px solid #E7DDCB;padding:28px 20px;display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <dc-import name="Character" hint-size="40px,46px" style="width:40px;height:46px;flex:none"></dc-import>
+              <div><div style="font:600 15px/1.2 Fraunces,serif;color:#2E2A26">Your journal</div><div style="font:500 12px/1.4 Inter,sans-serif;color:#948C80">14 memories</div></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;background:#E88C7D;border-radius:999px;padding:13px;box-shadow:0 8px 18px rgba(217,119,100,.26)"><span class="ms" style="font-size:17px;color:#fff">edit</span><span style="font:600 14px/1 Inter,sans-serif;color:#fff">Write a memory</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px;background:#F7E7E2"><span class="ms" style="font-size:20px;color:#D97764">home</span><span style="font:600 14px/1 Inter,sans-serif;color:#2E2A26">Home</span></div>
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px"><span class="ms" style="font-size:20px;color:#948C80">auto_stories</span><span style="font:500 14px/1 Inter,sans-serif;color:#5B554D">Stories</span></div>
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px"><span class="ms" style="font-size:20px;color:#948C80">face</span><span style="font:500 14px/1 Inter,sans-serif;color:#5B554D">Character</span></div>
+            </div>
+            <div style="height:1px;background:#E7DDCB"></div>
+            <div style="font:500 11px/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8AEA0">This story</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;gap:10px;align-items:center"><div style="width:34px;height:42px;border-radius:8px;overflow:hidden;flex:none"><image-slot id="ilj-d-t1" shape="rect" placeholder=""></image-slot></div><div style="font:500 13px/1.35 Inter,sans-serif;color:#2E2A26">Rain on the café window</div></div>
+              <div style="display:flex;gap:10px;align-items:center;opacity:.7"><div style="width:34px;height:42px;border-radius:8px;overflow:hidden;flex:none"><image-slot id="ilj-d-t2" shape="rect" placeholder=""></image-slot></div><div style="font:400 13px/1.35 Inter,sans-serif;color:#5B554D">The long way round the lake</div></div>
+              <div style="display:flex;gap:10px;align-items:center;opacity:.7"><div style="width:34px;height:42px;border-radius:8px;overflow:hidden;flex:none"><image-slot id="ilj-d-t3" shape="rect" placeholder=""></image-slot></div><div style="font:400 13px/1.35 Inter,sans-serif;color:#5B554D">Thunder at 4am</div></div>
+            </div>
+          </div>
+          <div style="flex:1;display:flex;justify-content:center;padding:40px 48px;min-width:0">
+            <div style="width:100%;max-width:1120px;background:#FBF5EC;border-radius:28px;box-shadow:0 20px 50px rgba(46,42,38,.10);padding:40px;display:flex;gap:48px;box-sizing:border-box">
+              <div style="flex:1.1;display:flex;flex-direction:column;min-width:0">
+                <div style="flex:1;border-radius:20px;overflow:hidden;box-shadow:0 16px 34px rgba(46,42,38,.18);min-height:0"><image-slot id="ilj-desktop-hero" shape="rect" placeholder="illustration"></image-slot></div>
+                <div style="height:16px"></div>
+                <div style="display:flex;align-items:center;gap:10px;flex:none">
+                  <div style="width:44px;height:54px;border-radius:10px;overflow:hidden;opacity:.6"><image-slot id="ilj-d-v1" shape="rect" placeholder="v1"></image-slot></div>
+                  <div style="width:44px;height:54px;border-radius:10px;overflow:hidden;box-shadow:0 0 0 2px #E88C7D,0 0 0 4px #FBF5EC"><image-slot id="ilj-d-v2" shape="rect" placeholder="v2"></image-slot></div>
+                  <div style="width:44px;height:54px;border-radius:10px;border:1px dashed #DCCFB9;display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:18px;color:#B8AEA0">add</span></div>
+                  <div style="font:500 12px/1.4 Inter,sans-serif;color:#948C80;margin-left:4px">Version 2 of 2</div>
+                </div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#B8AEA0">Monday · 24 August 2026</span>
+                  <div style="display:flex;gap:20px"><span class="ms" style="font-size:20px;color:#5B554D">edit</span><span class="ms" style="font-size:20px;color:#5B554D">more_horiz</span></div>
+                </div>
+                <div style="height:14px"></div>
+                <div style="font:600 40px/1.12 Fraunces,serif;color:#2E2A26;letter-spacing:-.015em">Rain on the café window</div>
+                <div style="height:20px"></div>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <dc-import name="Character" hint-size="26px,30px" style="width:26px;height:30px;flex:none"></dc-import>
+                  <span style="font:400 13px/1.4 Inter,sans-serif;color:#948C80">You're by the window</span>
+                </div>
+                <div style="height:20px"></div>
+                <div style="width:32px;height:1px;background:#E0D3BC"></div>
+                <div style="height:20px"></div>
+                <div style="font:400 17px/1.85 Inter,sans-serif;color:#4A443C;max-width:52ch">It rained the whole walk back from class, so I gave up and sat in the little café on the corner. Matcha, the window seat, everyone outside holding newspapers over their heads. I stayed an hour longer than I meant to, and nobody was waiting for me anywhere, which felt like a small luxury.</div>
+                <div style="height:22px"></div>
+                <div style="display:flex;gap:8px">
+                  <div style="display:flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;background:#F3EAD9"><span class="ms" style="font-size:15px;color:#A98F72">auto_stories</span><span style="font:500 12px/1 Inter,sans-serif;color:#5B554D">Summer 2026</span></div>
+                  <div style="padding:8px 13px;border-radius:999px;background:#F3EAD9;font:500 12px/1 Inter,sans-serif;color:#5B554D">quiet</div>
+                </div>
+                <div style="flex:1;min-height:24px"></div>
+                <div style="display:flex;gap:12px">
+                  <div style="display:flex;align-items:center;gap:8px;border:1px solid #E7DDCB;border-radius:999px;padding:14px 22px"><span class="ms" style="font-size:17px;color:#2E2A26">refresh</span><span style="font:600 14px/1 Inter,sans-serif;color:#2E2A26">Draw again</span></div>
+                  <div style="display:flex;align-items:center;justify-content:center;background:#E88C7D;border-radius:999px;padding:14px 34px;font:600 14px/1 Inter,sans-serif;color:#fff;box-shadow:0 8px 18px rgba(217,119,100,.26)">Done</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <sc-if value="{{ showAnnotations }}" hint-placeholder-val="{{ true }}">
+          <div style="width:1280px;font:400 13px/1.6 Inter,sans-serif;color:#7A7266;text-wrap:pretty">At 1280 the bottom nav becomes a left rail (same three destinations, same icons and order — no new sections) and the page becomes a real spread: illustration left, writing right, laid on a slightly darker desk tone so the ivory page reads as paper. Content caps at 1120 so the measure never stretches. Tablet at 834 is the same spread without the rail; laptop widths between 1024 and 1280 are the desktop layout with 32px padding.</div>
+        </sc-if>
+      </div>
+
+    </div>
+  </div>
+  </sc-if>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAnnotations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Board&quot;},&quot;showResponsive&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Board&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showAnnotations: this.props.showAnnotations ?? true,
+      showResponsive: this.props.showResponsive ?? true,
+    };
+  }
+}
+</script>
+</body>
+</html>
