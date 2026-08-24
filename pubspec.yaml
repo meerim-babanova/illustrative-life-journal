@@ -1,0 +1,40 @@
+name: illustrated_life_journal
+description: "Illustrated Life Journal — a personal illustrated journaling and storytelling app."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management — Provider is lightweight, well-documented, and
+  # sufficient for Phase 1's needs (single character config, small screen
+  # trees). Revisit only if app-wide state complexity grows significantly.
+  provider: ^6.1.2
+
+  # Local persistence for the character configuration (Section 22:
+  # "persistent local character configuration"). Simple key-value JSON
+  # storage is enough until Supabase is introduced in Phase 2.
+  shared_preferences: ^2.2.3
+
+  # Unique ids for local models (journal entries, stories) before a backend
+  # is connected.
+  uuid: ^4.4.0
+
+  cupertino_icons: ^1.0.8
+
+  # Elegant serif display type + clean sans supporting type, per the
+  # storybook design language. Fonts are fetched/cached on first run;
+  # switch to bundled font assets later if fully-offline startup matters.
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
