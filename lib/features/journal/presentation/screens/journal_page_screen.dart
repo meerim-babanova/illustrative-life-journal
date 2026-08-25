@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/layout/breakpoints.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../state/journal_provider.dart';
+import '../widgets/regenerate_sheet.dart';
+import '../widgets/scene_illustration.dart';
 
-/// Displays the resulting Journal Page after (mock) generation.
+/// The finished journal page: a spread, not a post.
 ///
-/// The illustration itself is a placeholder — a soft colored panel with an
-/// icon — standing in for the real illustrated scene that Phases 4-6 will
-/// produce via the AI Director + image generation pipeline.
+/// The illustration is the hero, the writing keeps full weight underneath it
+/// in serif at reading size, and the page's own metadata (date, story,
+/// character credit, regenerate) sits in a quiet rail.
 class JournalPageScreen extends StatelessWidget {
   const JournalPageScreen({super.key});
 
@@ -20,72 +23,195 @@ class JournalPageScreen extends StatelessWidget {
     final journal = context.watch<JournalProvider>();
     final page = journal.currentPage;
     final textTheme = Theme.of(context).textTheme;
+    final wide = Breakpoints.isWide(context);
 
     if (page == null) {
-      // Defensive fallback — shouldn't normally be reachable since this
-      // screen is only pushed once currentPage is populated.
       return Scaffold(
-        appBar: AppBar(title: const Text('Journal Page')),
+        appBar: AppBar(title: const Text('Your page')),
         body: Center(
           child: Text('No page to show yet.', style: textTheme.bodyMedium),
         ),
       );
     }
 
-    final palette = AppColors.placeholderPalette;
-    final color = palette[page.illustrationSeed % palette.length];
+    Future<void> regenerate() async {
+      final result = await showRegenerateSheet(
+        context,
+        takes: page.previousTakes,
+      );
+      if (result == null) return;
+      if (result.restore != null) {
+        journal.restoreTake(result.restore!);
+        return;
+      }
+      await journal.regenerate(nudge: result.nudge);
+    }
+
+    final illustration = Stack(
+      children: [
+        AspectRatio(
+          aspectRatio: wide ? 16 / 9 : 4 / 3,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppRadius.lg),
+              boxShadow: const [
+                BoxShadow(
+                  color: AppColors.shadow,
+                  blurRadius: 28,
+                  offset: Offset(0, 12),
+                ),
+              ],
+            ),
+            child: SceneIllustration(scene: page.scene),
+          ),
+        ),
+        Positioned(
+          left: AppSpacing.md,
+          bottom: AppSpacing.md,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+            decoration: BoxDecoration(
+              color: AppColors.ivory.withOpacity(0.94),
+              borderRadius: BorderRadius.circular(AppRadius.pill),
+            ),
+            child: Text(
+              'Your character appears in this page',
+              style: textTheme.labelSmall?.copyWith(
+                color: AppColors.charcoal,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+        if (journal.isWorking)
+          Positioned.fill(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: AppColors.ivory.withOpacity(0.72),
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+              ),
+              child: Center(
+                child: Text('Drawing it again…', style: textTheme.titleMedium),
+              ),
+            ),
+          ),
+      ],
+    );
+
+    final words = Text(
+      page.text,
+      style: textTheme.headlineSmall?.copyWith(
+        fontSize: wide ? 21 : 19,
+        height: 1.8,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+
+    final rail = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('THIS PAGE',
+            style: textTheme.labelSmall?.copyWith(letterSpacing: 1.6)),
+        const SizedBox(height: AppSpacing.sm),
+        Text(
+          page.scene.details.join(' · '),
+          style: textTheme.bodyMedium,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Text(
+          "Drawn from your words. If it doesn't feel like your memory, try another take — your writing stays exactly as it is.",
+          style: textTheme.bodyMedium,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        AppButton(
+          label: 'Regenerate illustration',
+          icon: Icons.refresh,
+          variant: AppButtonVariant.secondary,
+          isLoading: journal.isWorking,
+          onPressed: regenerate,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        AppButton(
+          label: 'Keep this page',
+          onPressed: () {
+            journal.keepPage();
+            journal.reset();
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              AppRoutes.home,
+              (route) => false,
+            );
+          },
+        ),
+      ],
+    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('Your page')),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AspectRatio(
-                aspectRatio: 4 / 5,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: color.withOpacity(0.25),
-                    borderRadius: BorderRadius.circular(AppRadius.lg),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.image_outlined, size: 48, color: color),
-                        const SizedBox(height: AppSpacing.sm),
-                        Text(
-                          'Illustration coming in a later phase',
-                          style: textTheme.labelSmall,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+                maxWidth: Breakpoints.contentMaxWidth(context)),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(_formatDate(page.date).toUpperCase(),
+                      style: textTheme.labelSmall?.copyWith(letterSpacing: 1.6)),
+                  const SizedBox(height: AppSpacing.sm),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Text(page.title, style: textTheme.displayLarge),
+                      ),
+                      if (page.storyTitle != null) ...[
+                        const SizedBox(width: AppSpacing.md),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.md,
+                              vertical: AppSpacing.sm),
+                          decoration: BoxDecoration(
+                            color: AppColors.ivoryDim,
+                            borderRadius:
+                                BorderRadius.circular(AppRadius.pill),
+                          ),
+                          child: Text('Story · ' + page.storyTitle!,
+                              style: textTheme.labelSmall),
                         ),
                       ],
-                    ),
+                    ],
                   ),
-                ),
+                  const SizedBox(height: AppSpacing.lg),
+                  illustration,
+                  const SizedBox(height: AppSpacing.lg),
+                  if (wide)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 3, child: words),
+                        const SizedBox(width: AppSpacing.xl),
+                        SizedBox(width: 264, child: rail),
+                      ],
+                    )
+                  else
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        words,
+                        const SizedBox(height: AppSpacing.lg),
+                        const Divider(),
+                        const SizedBox(height: AppSpacing.md),
+                        rail,
+                      ],
+                    ),
+                  const SizedBox(height: AppSpacing.xl),
+                ],
               ),
-              const SizedBox(height: AppSpacing.lg),
-              Text(page.title, style: textTheme.headlineSmall),
-              const SizedBox(height: AppSpacing.xs),
-              Text(
-                _formatDate(page.date),
-                style: textTheme.labelSmall,
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Text(page.text, style: textTheme.bodyLarge),
-              const SizedBox(height: AppSpacing.xl),
-              AppButton(
-                label: 'Back to Home',
-                onPressed: () {
-                  journal.reset();
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    AppRoutes.home,
-                    (route) => false,
-                  );
-                },
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -94,9 +220,13 @@ class JournalPageScreen extends StatelessWidget {
 
   String _formatDate(DateTime date) {
     const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      'January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December',
     ];
-    return '${months[date.month - 1]} ${date.day}, ${date.year}';
+    return date.day.toString() +
+        ' ' +
+        months[date.month - 1] +
+        ' ' +
+        date.year.toString();
   }
 }

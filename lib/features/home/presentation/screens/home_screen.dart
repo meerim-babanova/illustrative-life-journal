@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/layout/breakpoints.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/app_button.dart';
-import '../../../../core/widgets/app_card.dart';
 import '../../../character/presentation/widgets/character_preview.dart';
 import '../../../character/state/character_provider.dart';
+import '../../../journal/presentation/widgets/memory_card.dart';
 import '../../../journal/state/journal_provider.dart';
 import '../../../stories/data/mock_stories.dart';
 import '../../../stories/presentation/widgets/story_card.dart';
 
-/// The main hub screen: character, a low-friction prompt to write, recent
-/// memories, and a preview of Stories.
+/// Home: the character, one invitation to write, and the memories that have
+/// already become illustrated pages.
 ///
-/// Per Section 20 (UX principles), this screen avoids feeling like a
-/// productivity dashboard — one clear emotional focal point (the
-/// character + "what happened today?" prompt), with everything else
-/// secondary and lightweight.
+/// Phase 2 changes: recent memories now show their illustrations, and every
+/// list is laid out from intrinsic heights instead of fixed pixel boxes, so
+/// nothing overflows at tablet or narrow widths.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -46,168 +46,128 @@ class _HomeScreenState extends State<HomeScreen> {
     final character = context.watch<CharacterProvider>();
     final journal = context.watch<JournalProvider>();
     final textTheme = Theme.of(context).textTheme;
-    final recentStories = mockStories.take(2).toList();
+    final wide = Breakpoints.isWide(context);
+    final columns = Breakpoints.gridColumns(context, max: 3);
+    final pages = journal.recentPages;
+
+    final invitation = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('Welcome back', style: textTheme.bodyMedium),
+        const SizedBox(height: AppSpacing.xs),
+        Text(
+          pages.isEmpty
+              ? 'Your story starts today'
+              : 'Your story is ' +
+                  pages.length.toString() +
+                  (pages.length == 1 ? ' page long' : ' pages long'),
+          style: textTheme.displayMedium,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Text(
+          'Write a few lines and turn this moment into a page in your story.',
+          style: textTheme.bodyLarge,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        AppButton(
+          label: 'What happened today?',
+          icon: Icons.edit_outlined,
+          expand: !wide,
+          onPressed: () =>
+              Navigator.of(context).pushNamed(AppRoutes.journalEntry),
+        ),
+      ],
+    );
 
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg,
-                AppSpacing.lg,
-                AppSpacing.lg,
-                0,
-              ),
-              sliver: SliverToBoxAdapter(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Welcome back', style: textTheme.bodyMedium),
-                          Text('Your story continues', style: textTheme.displayMedium),
-                        ],
-                      ),
-                    ),
-                    CharacterPreview(config: character.config, size: 72),
-                  ],
-                ),
-              ),
-            ),
-            SliverPadding(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+                maxWidth: Breakpoints.contentMaxWidth(context)),
+            child: ListView(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              sliver: SliverToBoxAdapter(
-                child: AppCard(
-                  child: Column(
+              children: [
+                if (wide)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(child: invitation),
+                      const SizedBox(width: AppSpacing.xl),
+                      CharacterPreview(config: character.config, size: 180),
+                    ],
+                  )
+                else
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('What happened today?', style: textTheme.headlineSmall),
-                      const SizedBox(height: AppSpacing.xs),
-                      Text(
-                        'Write a few lines and watch it become a page in your story.',
-                        style: textTheme.bodyMedium,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text('Welcome back',
+                                style: textTheme.bodyMedium),
+                          ),
+                          CharacterPreview(config: character.config, size: 72),
+                        ],
                       ),
-                      const SizedBox(height: AppSpacing.md),
-                      AppButton(
-                        label: 'Write a memory',
-                        icon: Icons.edit_outlined,
-                        onPressed: () =>
-                            Navigator.of(context).pushNamed(AppRoutes.journalEntry),
-                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      invitation,
                     ],
                   ),
+                const SizedBox(height: AppSpacing.xl),
+                _SectionHeader(
+                  title: 'Recent memories',
+                  action: pages.isEmpty ? null : 'See all',
+                  onAction: pages.isEmpty ? null : () {},
                 ),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg,
-                0,
-                AppSpacing.lg,
-                AppSpacing.sm,
-              ),
-              sliver: SliverToBoxAdapter(
-                child: Text('Recent memories', style: textTheme.titleMedium),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg,
-                0,
-                AppSpacing.lg,
-                AppSpacing.lg,
-              ),
-              sliver: SliverToBoxAdapter(
-                child: journal.recentPages.isEmpty
-                    ? _RecentMemoriesEmptyState(textTheme: textTheme)
-                    : SizedBox(
-                        height: 90,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: journal.recentPages.length,
-                          separatorBuilder: (_, __) =>
-                              const SizedBox(width: AppSpacing.sm),
-                          itemBuilder: (context, index) {
-                            final page = journal.recentPages[index];
-                            return AppCard(
-                              padding: const EdgeInsets.all(AppSpacing.sm),
-                              child: SizedBox(
-                                width: 160,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      page.title,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: textTheme.titleMedium,
-                                    ),
-                                    Text(
-                                      page.text,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: textTheme.bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg,
-                0,
-                AppSpacing.lg,
-                AppSpacing.sm,
-              ),
-              sliver: SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Stories', style: textTheme.titleMedium),
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed(AppRoutes.stories),
-                      child: const Text('See all'),
+                const SizedBox(height: AppSpacing.md),
+                if (pages.isEmpty)
+                  const _RecentMemoriesEmptyState()
+                else
+                  GridView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: pages.length > 6 ? 6 : pages.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: columns,
+                      mainAxisSpacing: AppSpacing.md,
+                      crossAxisSpacing: AppSpacing.md,
+                      // A fixed main-axis extent (rather than an aspect
+                      // ratio) is what keeps these cards overflow-proof.
+                      mainAxisExtent: 246,
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg,
-                0,
-                AppSpacing.lg,
-                AppSpacing.xxl,
-              ),
-              sliver: SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 170,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: recentStories.length,
-                    separatorBuilder: (_, __) =>
-                        const SizedBox(width: AppSpacing.md),
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        width: 150,
-                        child: StoryCard(story: recentStories[index]),
-                      );
-                    },
+                    itemBuilder: (context, i) => MemoryCard(page: pages[i]),
                   ),
+                const SizedBox(height: AppSpacing.xl),
+                _SectionHeader(
+                  title: 'Stories',
+                  action: 'See all',
+                  onAction: () =>
+                      Navigator.of(context).pushNamed(AppRoutes.stories),
                 ),
-              ),
+                const SizedBox(height: AppSpacing.md),
+                GridView.builder(
+                  shrinkWrap: true,
+                  primary: false,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: mockStories.length > columns
+                      ? columns
+                      : mockStories.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: columns,
+                    mainAxisSpacing: AppSpacing.md,
+                    crossAxisSpacing: AppSpacing.md,
+                    mainAxisExtent: 220,
+                  ),
+                  itemBuilder: (context, i) =>
+                      StoryCard(story: mockStories[i]),
+                ),
+                const SizedBox(height: AppSpacing.xl),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -217,29 +177,55 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
           BottomNavigationBarItem(
               icon: Icon(Icons.auto_stories_outlined), label: 'Stories'),
-          BottomNavigationBarItem(icon: Icon(Icons.face_outlined), label: 'Character'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.face_outlined), label: 'Character'),
         ],
       ),
     );
   }
 }
 
-class _RecentMemoriesEmptyState extends StatelessWidget {
-  const _RecentMemoriesEmptyState({required this.textTheme});
+class _SectionHeader extends StatelessWidget {
+  const _SectionHeader({required this.title, this.action, this.onAction});
 
-  final TextTheme textTheme;
+  final String title;
+  final String? action;
+  final VoidCallback? onAction;
 
   @override
   Widget build(BuildContext context) {
-    return AppCard(
-      color: AppColors.ivoryDim,
+    final textTheme = Theme.of(context).textTheme;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(child: Text(title, style: textTheme.headlineSmall)),
+        if (action != null)
+          TextButton(onPressed: onAction, child: Text(action!)),
+      ],
+    );
+  }
+}
+
+class _RecentMemoriesEmptyState extends StatelessWidget {
+  const _RecentMemoriesEmptyState();
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      decoration: BoxDecoration(
+        color: AppColors.ivoryDim,
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+      ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Icon(Icons.auto_awesome, color: AppColors.charcoalFaint),
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Text(
-              'Your first memory will show up here once you write one.',
+              'Your first illustrated page will appear here once you write a memory.',
               style: textTheme.bodyMedium,
             ),
           ),
